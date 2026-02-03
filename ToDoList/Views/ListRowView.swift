@@ -8,21 +8,25 @@
 import SwiftUI
 
 struct ListRowView: View {
-    @State var title: String
+     let item: ItemModel
 
     var body: some View {
         HStack {
-            Image(systemName: "checkmark.circle")
-                .foregroundColor(.blue)
-            Text("This is first item!")
+            Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                .foregroundColor(item.isCompleted ? .green : .red)
+            Text(item.title)
                 .font(.headline)
             Spacer()
         }
         .frame(height: 55)
+        .font(.title2)
         .padding()
     }
 }
 
-#Preview {
-    ListRowView(title: "This is first item!!")
+#Preview(traits: .sizeThatFitsLayout) {
+    Group {
+        ListRowView(item: ItemModel(title: "This is first item!!", isCompleted: true))
+        ListRowView(item: ItemModel(title: "This is second item!!", isCompleted: false))
+    }
 }
