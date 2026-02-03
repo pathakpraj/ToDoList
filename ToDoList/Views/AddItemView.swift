@@ -12,6 +12,9 @@ struct AddItemView: View {
     @State var textFieldText: String = ""
     @Environment(\.presentationMode) var presentationMode
 
+    @State var alertText = ""
+    @State var showAlert: Bool = false
+
     var body: some View {
         ScrollView {
             VStack {
@@ -39,11 +42,32 @@ struct AddItemView: View {
 
             }
         }
-        .navigationTitle("Add an Item!")
+        .navigationTitle("Add an Item! ✏️")
+        .alert(isPresented: $showAlert) {
+            getAlert()
+        }
+
     }
 
     private func saveButtonPressed() {
-        listViewModel.addItem(title: textFieldText)
+        if textIsValid() {
+            listViewModel.addItem(title: textFieldText)
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+
+    private func textIsValid() -> Bool {
+        if textFieldText.count < 3 {
+            alertText = "Please enter a longer description."
+            showAlert.toggle()
+            return false
+        } else {
+            return true
+        }
+    }
+
+    private func getAlert() -> Alert {
+        Alert(title: Text(alertText))
     }
 }
 
