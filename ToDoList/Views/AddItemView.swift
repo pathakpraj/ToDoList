@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddItemView: View {
+    @EnvironmentObject var listViewModel: ListViewModel
     @State var textFieldText: String = ""
     @Environment(\.presentationMode) var presentationMode
 
@@ -24,7 +25,7 @@ struct AddItemView: View {
                     .padding(.top, 20)
 
                 Button(action: {
-
+                    saveButtonPressed()
                 }, label: {
                     Text("Save".uppercased())
                         .foregroundStyle(.white)
@@ -39,10 +40,14 @@ struct AddItemView: View {
             }
         }
         .navigationTitle("Add an Item!")
+    }
 
+    private func saveButtonPressed() {
+        listViewModel.addItem(title: textFieldText)
     }
 }
 
 #Preview {
     AddItemView()
+        .environmentObject(ListViewModel())
 }
