@@ -36,4 +36,10 @@ class ListViewModel: ObservableObject {
     func addItem(title: String) {
         items.append(ItemModel(title: title))
     }
+
+    func updateItem(of item: ItemModel) {
+        guard let index = items.firstIndex(where: {$0.id == item.id}) else { return }
+        
+        items[index] = item.update()
+    }
 }
