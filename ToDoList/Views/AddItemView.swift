@@ -22,7 +22,7 @@ struct AddItemView: View {
                     .padding(.horizontal)
                     .frame(height: 55)
                     .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
+                    .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10)
                     .padding()
                     .padding(.top, 20)
@@ -72,6 +72,7 @@ struct AddItemView: View {
 }
 
 #Preview {
-    AddItemView()
-        .environmentObject(ListViewModel())
+        AddItemView()
+            .environmentObject(ListViewModel())
+            .preferredColorScheme(.light)
 }
